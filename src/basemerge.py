@@ -52,16 +52,119 @@ General commentary:
 """
 
 
-def merge(partA: list[int], partB: list[int]) -> list[int]:
+def merge(partA: list[int], partB: list[int]) -> list[int]: #works for even stupid ass big numbers somewhat fast.
     res = []
-    while len(partA) > 0:
-        if partA[0] < partB[0]: #partA always greater or equal in length
+    while len(partA) * len(partB) > 0: #if any hits 0, multiplication goes to 0.
+        if partA[0] < partB[0]: #partB always greater or equal in length
             res.append(partA.pop(0))
+            continue
         res.append(partB.pop(0))
-    while len(partA) > 0: #if MikeFoxtroting partB ends, copy rest of A already.
+        #debug. I want to see these mikefoxtrots get popped
+        """ 
+        print("!DEBUG! -----------")
+        print(partA)
+        print(partB)
+        print(res)
+        print("<------------------>") 
+         """
+    #copy rest of stragglers and foxtroters.
+    #at least one of these fuckers won't activate, so all's fine and stuff.
+    while len(partA) > 0: 
         res.append(partA.pop(0))
+    while len(partB) > 0: 
+        res.append(partB.pop(0))
+    """ 
+    print("!DEBUG! Done :> -----------")
+    print(res)
+    print("<------------------>")  
+    """
+    return res
 
 def mergeSort(this: list[int]):
+    #if len == 1, then
+    if len(this) == 1:
+        #already sorted, return this mf
+        return this
+    #else, we run the actual algorithm
     a = len(this)
-    a
-    pass
+    a = a//2 
+
+    #we ain't doing sierra else merge whatever crawls backup
+    #then, let's see what crawls.
+    partA = mergeSort(this[:a])
+    partB = mergeSort(this[a:])
+    
+    merged = merge(partA, partB)
+
+    return merged
+
+def checkIfSorted(somelist):
+    
+    for i in range(len(somelist) - 1):
+        if somelist[i] > somelist[i+1]:
+            return False
+    else:
+        return True
+
+""" #this is theMerge test routine. It tests merging two sorted arrays.
+if __name__ == "__main__":
+
+    
+    #verdict -> merge working!
+    
+    print("STARTING thegreat TEST ROUTINE!")
+    import random
+    try:
+        a = int(input("Give n: "))
+    except:
+        print("not int. quiting")
+        quit()
+
+    b = input("Give seed: ")
+    print("generating lists")
+    random.seed(b)
+    list1 = []
+    list2 = []
+    for _ in range(a):
+        list1.append(random.randint(a = 0, b = 1000))
+        list2.append(random.randint(a = 0, b = 1000))
+
+    
+    list1.sort()
+    list2.sort()
+
+    print(list1)
+    print(list2)
+    z = merge(list1, list2)
+    print(z)
+ """
+
+    
+
+#this is TheGreat test routine. It actually tests the mergeSort.
+if __name__ == "__main__":
+    print("STARTING thegreat TEST ROUTINE!")
+    import random
+    try:
+        a = int(input("Give n: "))
+    except:
+        print("not int. quiting")
+        quit()
+    b = input("Give seed: ")
+    print("generating list")
+    random.seed(b)
+    z = []
+    for _ in range(a):
+        z.append(random.randint(a=0, b=1000))
+    print("generation done.")
+    print("---------------------------")
+    print("sorting...")
+    z = mergeSort(z) #ah yeah, this overwrites your list, btw :3
+    passed = checkIfSorted(z)
+    if passed:
+        print("TEST PASSED SUCCESSFULLY")
+    else:
+        print("FAILED!")
+
+    
+
