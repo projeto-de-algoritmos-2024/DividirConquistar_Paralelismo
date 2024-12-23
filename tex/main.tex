@@ -1,7 +1,10 @@
 \documentclass{article}
+\usepackage[utf8]{inputenc}
 \usepackage{graphicx} % Required for inserting images
+\usepackage{amsmath}
+\usepackage[brazil]{babel}
 
-\title{ESTRATÉGIAS DIVIDIR E CONQUISTAR COM MULTIPROCESSAMENTO EM PYTHON}
+\title{RELATÓRIO: ESTRATÉGIAS DIVIDIR E CONQUISTAR COM MULTIPROCESSAMENTO EM PYTHON}
 \author{
     Ryan Augusto Brandão Salles - 221008436\\
     Victor - 
@@ -14,10 +17,96 @@
 \maketitle
 
 \section{Introdução}
+Essa seção visa trazer alguns assuntos introdutórios, mais precisamente, situar o leitor sobre o que se trata esse documento, qual o trabalho que busca ser realizado e qual exatamente seria sua motivação, além de demais especificidades de caráter estritamente introdutório ao teor do que será tratado nesse relatório.
+
+\subsection{O que é esse documento}
+Esse documento é um relatório que sumariza resultados obtidos durante a implementação e testagem de algoritmos de Divisão \& Conquista para a disciplina de Projeto de Algoritmos durante o semestre 2024.2, bem como detalhes sobre como exatamente esses algoritmos foram implementados.\\
+Mais especificamente, os resultados obtidos para a paralelização dos seguintes algoritmos:
+    \begin{enumerate}
+        \item MergeSort
+        \item InversionCount
+    \end{enumerate}
+Detalhes sobre esses algoritmos podem ser encontrados no tópico \ref{algoritmos}.\\
+Ademais, os algoritmos foram escolhidos por sua facilidade de implementação e paralelização, mantendo o foco 
+\subsection{Justificativa I: possibilidade de melhor desempenho e suas consequências}
+Um melhor desempenho em qualquer um desses algoritmos pode ser crucial para problemas estupidamente grandes. Melhor desempenho pode ser a diferença entre aguardar um ano para a execução de um algoritmo ou 20 anos. 
+
+\subsection{Justificativa II: interesse acadêmico e lúdico}
+Algoritmos acadêmicos são classicamente implementados utilizando um core e uma thread. Nossa dupla gostaria de ver as possibilidades de melhor performance de um algoritmo ao utilizar o poder completo do hardware em nossas mãos.\\
+Mais especificamente, algoritmos de tipo Dividir \& Conquistar, segundo o artigo no tópico da wikipédia, são geralmente trivialmente paralelizáveis, o que levanta a questão de exatamente quanta performance poderia ser ganha caso fossem de fato paralelizáveis, adicionando capacidade de realmente utilizar todo o poder do hardware moderno disponíveis em nossas mãos.\\
+No mais, simplesmente parece algo divertido de se fazer e se ver rodando e isso deveria ser justificativa o suficiente, caso as \textbf{outras justificativas} não existissem.
+
+\subsection{Escolha de linguagem}
+A linguagem escolhida para essa implementação foi a Python, por duas razões simples:
+\begin{itemize}
+    \item simplicidade de uso
+    \item disponibilidade de utensílios
+\end{itemize}
+Onde por "simplicidade de uso" queremos dizer "Nós não precisamos pensar muito em como algo precisa ser feito ou pesquisar sintaxe" e, por "disponibilidade de utensílios" queremos dizer "não é necessário escrever algo tão básico quanto uma lista encadeada ou um método pop, a linguagem já possui isso implementada na biblioteca padrão".\\
+No mais, Python, para o nosso relatório, funciona bem ao possuir uma implementação de criação de processos portável, algo que dificultaria em muito o uso de linguagem C, considerando que os membros utilizam tanto os sistemas Windows e Linux.\\
+Utilizando Python, podemos testar a performance dos algoritmos em uma multitude de hardware sem a necessidade de reinplementar um código para um determinado sistema operacional que esse hardware está rodando no momento.
 
 \section{Metodologia}
+Para esse experimento, a metodologia utilizada é o seguinte procedimento:
+\begin{enumerate}
+    \item implementação do algoritmo base single-threaded
+    \item avaliação da performance base
+    \item modificação do algoritmo para paralelização
+    \item avaliação da performance paralelizada
+    \item comparação de performances e determinação do speedup
+\end{enumerate}
+Esses itens servirão de subtópicos para a metodologia e serão expandidos a seguir.
 
-\section{Algoritmos}
+\subsection{Implementação do algoritmo base}
+    A implementação do algoritmo base consiste em implementar o algoritmo em python inicialmente para rodar em apenas um processo e uma thread, utilizando somente um dos cores disponíveis da cpu, ou seja, para um determinado algoritmo de complexidade assintótica 
+        
+        \begin{equation}\label{perfbase}
+            O(n \log(n))    
+        \end{equation}
+    
+    espera-se que, para um determinado input de tamanho n e dada uma determinada cpu de capaz de executar k instruções por segundo, o algoritmo demore cerca de
+        
+        \begin{equation}\label{perfseg}
+            \frac{n}{k} \log(\frac{n}{k})
+        \end{equation}
+        
+    segundos para executar o dado algoritmo.\\ 
+    O propósito dessa etapa é obter o algoritmo que levará à próxima etapa, assunto do nosso próximo tópico.\\
+
+\subsection{Avaliação da performance base}
+A avaliação da performance base se dará por rodar o algoritmo obtido na implementação base e observar como a curva de crescimento do tempo de execução se comporta para inputs cada vez maiores. Isso serve 2 propósitos simples:
+\begin{itemize}
+    \item Averiguar se a implementação feita foi o mais próxima possível de uma complexidade ótima (cuja negação implica na necessidade de corrigir o algoritmo);
+\end{itemize}
+e, certamente,
+\begin{itemize}
+    \item Obter a performance que desejamos melhorar com o uso de estratégias de paralelização.
+\end{itemize}
+
+\subsection{Modificação do algoritmo para paralelização}
+Como buscamos avaliar quanto é possível extrair de performance ao utilizar todos os cores de uma cpu moderna, temos de modificar o algoritmo base para podermos seguir com nossa avaliação.
+
+\subsection{Avaliação da performance paralelizada}
+Após a paralelização do algoritmo, mediremos sua performance. A expectativa inicial é que, dado uma determinada etapa completamente paralelizável do algoritmo, digamos, por exemplo, durante um mergeSort, uma etapa de divisão ou conquista, seja possível tornar a equação \eqref{perfseg} em algo como: 
+    \begin{equation}
+        \frac{n}{k\zeta} \log(\frac{n}{k})
+    \end{equation}
+
+Onde $\zeta$ indica o número de cores que estamos usando. Idealmente, todos os cores disponíveis serão utilizados, algo que depende de configuração do sistema operacional para correto gerenciamento dos processos e, muito infelizmente, está além do nosso alcance sem uma quantidade de trabalho que destruiria o ponto desse relatório.\\
+É esperado que a performance teorizada para cada algoritmo nunca chegue perto de seu auge teorico por fatores como consumo de processamento por parte do sistema operacional, já que é inviável que esses algoritmos sejam rodados em espaço protegido.\\
+No mais, essa avaliação será feita com base no mesmo conjunto de dados da avaliação base a fim de evitar anomalias na comparação de performance.
+
+\subsection{Comparação de performance e determinação do speedup}
+
+
+
+\section{Algoritmos}\label{algoritmos}
+Nesse tópico, serão brevemente explicados os algoritmos implementados, seu funcionamento, objetivo e estratégia de paralelização.
+
+\subsection{MergeSort}
+MergeSort é um algoritmo de ordenação de vetores desenvolvido inicialmente por Von Neumann, um fato peculiar e divertido. No mais, a ideia é razoavelmente simples de ser compreendida: ordene partes menores, mescle as partes ordenadas, lucre.\\
+
+\subsection{InvertionCount}
 
 \section{Resultados}
 
