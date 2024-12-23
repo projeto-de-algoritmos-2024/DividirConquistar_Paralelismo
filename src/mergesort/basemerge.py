@@ -1,7 +1,8 @@
 """
-Written by bcl0c.
+Written by bcl0c.  violence :>
 
-Warning ZERO: violence :>
+Warning ZERO: this guy starts taking a long Alpha time to sort numbers upward of a million 
+    entries. Be very aware of that :>>>.
 
 Warning 1: This code uses the patented (not really) locvst's (no proof
 of invention) NATO Styled Secure Cursing Commentary system.
