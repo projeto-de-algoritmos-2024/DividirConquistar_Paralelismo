@@ -1,22 +1,4 @@
-# DividirConquistar_Paralelismo
-    Comparacao de performance de algoritmos classicamente dividir e conquistar em modo uma thread e apos paralelizacao
-
-
-**!! Atenção: Renomeie o seu repositório para (Tema)_(NomeDoProjeto). !!** 
-
-Temas:
- - Grafos1
- - Grafos2
- - PD
- - D&C
- - Greed
- - Final 
- 
- **!! *Não coloque os nomes dos alunos no título do repositório*. Exemplo de título correto: Grafos2_Labirinto-do-Minotauro !!**
- 
- (Apague essa seção)
-
-# NomedoProjeto
+# D&C_Paralelismo
 
 **Número da Lista**: X<br>
 **Conteúdo da Disciplina**: XXXXXXXXXX<br>
@@ -24,22 +6,28 @@ Temas:
 ## Alunos
 |Matrícula | Aluno |
 | -- | -- |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
-| xx/xxxxxx  |  xxxx xxxx xxxxx |
+| 221008436  | Ryan Augusto Brandão Salles |
+| 221008481 |  Víctor Moreira Almeida |
 
 ## Sobre 
-Descreva os objetivos do seu projeto e como ele funciona. 
+O projeto visa observar a performance de um algoritmo dividir e conquistar após a aplicação de paralelismo
+e observar exatamente quanta performance pode ser obtida ou perdida no processo a depender de especificidades como
+quantidade de processos gerados.
 
 ## Screenshots
 Adicione 3 ou mais screenshots do projeto em funcionamento.
 
 ## Instalação 
-**Linguagem**: xxxxxx<br>
-**Framework**: (caso exista)<br>
-Descreva os pré-requisitos para rodar o seu projeto e os comandos necessários.
+**Linguagem**: Python<br>
+Basta clonar o projeto e rodar os scripts na pasta src.
+
+Cada script é contido em seu próprio código e apresenta um (tosco) relatório de performance 
+para cada rodagem.
 
 ## Uso 
-Explique como usar seu projeto caso haja algum passo a passo após o comando de execução.
 
-## Outros 
-Quaisquer outras informações sobre seu projeto podem ser descritas abaixo.
+1. Após a iniciação do script, escolha a quantidade de números a serem gerados.
+2. Após a quantidade, escolha a semente de geração.
+3. Será rodado inicialmente o algoritmo paralelizado, do qual espera-se que seja mais rápido, em geral.
+4. Após, será rodado o algoritmo single-thread e single process, que deve demorar consideravelmente mais.
+
