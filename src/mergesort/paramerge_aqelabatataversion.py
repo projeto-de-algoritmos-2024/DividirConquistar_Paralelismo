@@ -1,4 +1,10 @@
+"""
+    This commentary was made by bcL0c, but the code author is aqelabatata;
 
+    This version, from what i see, uses no more than 8 threads, which already 
+    gives an insane insane speedup!
+
+"""
 import threading
 import timeit
 from basemerge import *
