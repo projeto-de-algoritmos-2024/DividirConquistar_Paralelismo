@@ -1,7 +1,7 @@
 # D&C_Paralelismo
 
 **Número da Lista**: X<br>
-**Conteúdo da Disciplina**: XXXXXXXXXX<br>
+**Conteúdo da Disciplina**: Divisão e Conquista<br>
 
 ## Alunos
 |Matrícula | Aluno |
@@ -30,4 +30,13 @@ para cada rodagem.
 2. Após a quantidade, escolha a semente de geração.
 3. Será rodado inicialmente o algoritmo paralelizado, do qual espera-se que seja mais rápido, em geral.
 4. Após, será rodado o algoritmo single-thread e single process, que deve demorar consideravelmente mais.
+
+## Outros
+
+NÃO UTILIZAR MULTIPROCESSING DA MESMA FORMA QUE THREADING.
+
+Ademais, a quantidade de threads no algoritmo descrito no relatório pode ser alterada por meio da constante
+THREADS. Leia o trecho Resultados para mais detalhes.
+
+
 
