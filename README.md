@@ -14,8 +14,10 @@ O projeto visa observar a performance de um algoritmo dividir e conquistar após
 e observar exatamente quanta performance pode ser obtida ou perdida no processo a depender de especificidades como
 quantidade de processos gerados.
 
+[explicação estensa do código e relatorio](https://youtu.be/patzm9WBnTU)
+
 ## Screenshots
-Adicione 3 ou mais screenshots do projeto em funcionamento.
+
 
 ## Instalação 
 **Linguagem**: Python<br>
