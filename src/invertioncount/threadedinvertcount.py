@@ -1,6 +1,7 @@
 import threading
 import timeit
 from baseinvertcount import *
+import baseinvertcount
 
 
 # -------------------------------//---------------------------------
@@ -49,3 +50,18 @@ def threadedInvertionCount(this: list[int], count: int = 0):
     merged, sum = mergeCount(partA, partB, countA + countB)
     return merged, sum
 
+if __name__ == "__main__":
+    print("STARTING thegreat TEST ROUTINE!")
+    import random
+    try:
+        a = int(input("Give n: "))
+    except:
+        print("not int. quiting")
+        quit()
+    b = input("Give seed: ")
+    print("generating list")
+    random.seed(b)
+    z = []
+    for _ in range(a):
+        z.append(random.randint(a=0, b=1000))
+    

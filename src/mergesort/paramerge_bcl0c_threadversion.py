@@ -7,8 +7,9 @@ to do his dirty work, very great song by steely dan, btw.
 """
 import basemerge
 import threading
+import timeit
 
-THREADS = 8
+THREADS = 10000
 
 def merge(partA: list[int], partB: list[int], res: list) -> list[int]: #works for even stupid ass big numbers somewhat fast.
     while len(partA) * len(partB) > 0: #if any hits 0, multiplication goes to 0.
@@ -42,9 +43,9 @@ def mergeSort(this: list[int], res: list) -> None:
     #this -> list to be sorted; but
     #res -> pointer to where you expect the result to be.
     #major break condition
-    if threading.activeCount() >= THREADS:
+    if threading.active_count() >= THREADS:
         sorted = basemerge.mergeSort(this)
-        print("sorted: ", sorted)
+        #print("sorted: ", sorted)
         for item in sorted:
             res.append(item)
         return
@@ -147,6 +148,8 @@ def minorTest():
 
 def majorTest():
     print("STARTING thegreat TEST ROUTINE!")
+    print("To change the desired number of threads, change constant!")
+    print(f'now running with {THREADS} threads!')
 
     import random
     try:
@@ -165,12 +168,12 @@ def majorTest():
     print("sorting...")
     new = []
     mergeSort(z, new) #ah yeah, this overwrites your list, btw :3 (i do think so, at least)
-    """ 
-    print("------------")
-    print("unsorted: ", z)
-    print("sorted: ", new)
-    print("-------------") 
-    """
+   
+    #print("------------")
+    #print("unsorted: ", z)
+    #print("sorted: ", new)
+    #print("-------------") 
+   
 
     passed = checkIfSorted(new)
     if passed and len(new) == len(z):
@@ -178,8 +181,51 @@ def majorTest():
     else:
         print("FAILED!")
 
+def majorMajorTest(): #actually measures time and allows user to define number of threads.
+    print("STARTING theVERYgreat TEST ROUTINE!")
+    print("To change the desired number of max threads, change constant!")
+    print(f'now running with max {THREADS} threads!')
+    import random
+    try:
+        a = int(input("Give n: "))
+    except:
+        print("not int. quiting")
+        quit()
+    b = input("Give seed: ")
+    print("generating list")
+    random.seed(b)
+    z = []
+    for _ in range(a):
+        z.append(random.randint(a=0, b=1000))
+    print("generation done.")
+    print("---------------------------")
+    print("starting paramerge!")
+    
+    new = []
+    start = timeit.default_timer()
+    mergeSort(z, new)
+    stop = timeit.default_timer()
+    time = stop-start
+    print(f'PARALELIZED TOOK {time} SECONDS.')
+    print("passed") if basemerge.checkIfSorted(new) == True else print("FAILED")
+    print("---------------------------")
+    print("clearing random list")
+    z.clear()
+    print("REGENERATING RANDOM LIST!")
+    for _ in range(a):
+        z.append(random.randint(a=0, b=1000))
+    print("generation done.")
+    print("--------------------------")
+    print("starting single-thread sort")
+    start = timeit.default_timer()
+    z = basemerge.mergeSort(z)
+    stop = timeit.default_timer()
+    time = stop-start
+    print(f'SINGLE-THREADED TOOK {time} SECONDS.')
+    print("passed") if basemerge.checkIfSorted(z) == True else print("FAILED")
+    print("finished...")
 
 #this is TheGreat test routine. It actually tests the mergeSort.
 if __name__ == "__main__":
-    majorTest()
+    majorMajorTest()
 
