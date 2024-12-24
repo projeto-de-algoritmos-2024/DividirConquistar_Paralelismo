@@ -1,6 +1,6 @@
 # D&C_Paralelismo
 
-**Número da Lista**: X<br>
+**Número da Lista**: 9<br>
 **Conteúdo da Disciplina**: Divisão e Conquista<br>
 
 ## Alunos
@@ -16,8 +16,12 @@ quantidade de processos gerados.
 
 [explicação estensa do código e relatorio](https://youtu.be/patzm9WBnTU)
 
-## Screenshots
+O relatório está disponível em tex e pdf na pasta tex.
 
+## Screenshots
+[](https://raw.githubusercontent.com/projeto-de-algoritmos-2024/DividirConquistar_Paralelismo/refs/heads/main/assets/rodando1.png)
+[](https://raw.githubusercontent.com/projeto-de-algoritmos-2024/DividirConquistar_Paralelismo/refs/heads/main/assets/rodando2.png) 
+[](https://raw.githubusercontent.com/projeto-de-algoritmos-2024/DividirConquistar_Paralelismo/refs/heads/main/assets/rodando3.png)
 
 ## Instalação 
 **Linguagem**: Python<br>
