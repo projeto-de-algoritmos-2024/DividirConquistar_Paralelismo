@@ -9,7 +9,7 @@ import basemerge
 import threading
 import timeit
 
-THREADS = 10000
+THREADS = 4
 
 def merge(partA: list[int], partB: list[int], res: list) -> list[int]: #works for even stupid ass big numbers somewhat fast.
     while len(partA) * len(partB) > 0: #if any hits 0, multiplication goes to 0.
